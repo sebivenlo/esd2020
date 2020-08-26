@@ -1,0 +1,153 @@
+\documentclass[
+%%notumble,
+nofoldmark,
+%%dvipdfm,
+%%portrait,
+%%titlepage,
+%%nocombine,
+%%a3paper,
+%%debug,
+%%nospecialtricks,
+%%draft,
+]{leaflet}
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{.2\baselineskip}{.1\baselineskip}
+\titlespacing*{\subsection}{0pt}{.2\baselineskip}{.1\baselineskip}
+\renewcommand*\foldmarkrule{.3mm}
+\renewcommand*\foldmarklength{5mm}
+\providecommand\TitleImage{fontys-logo.pdf}
+\usepackage[utf8]{inputenc}
+\usepackage[british]{babel}
+\input{myhyphenations}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{mathptmx}
+\usepackage{url}
+\usepackage{mdwlist}
+\usepackage{ifthen}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{colortbl,tabu}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{rotating}
+\usepackage{fancybox}
+\usepackage{wrapfig}
+\input{sheeticons}
+
+\definecolor{LIGHTGRAY}{gray}{.9}
+\definecolor{TYPEBLUE}{rgb}{0,0,.5}
+\definecolor{darkblue}{rgb}{0,0,.6}
+\definecolor{fontys}{rgb}{0.3,0,.3}
+\newcommand\Type[1]{{\sffamily\color{TYPEBLUE}#1}}
+\newcommand*\defaultmarker{\textsuperscript\textasteriskcentered}
+
+\providecommand\TheAuthor{Pieter~van~den~Hombergh\\
+  Richard~van~den~Ham}
+\author{\TheAuthor}
+\date{printed \today}
+
+\makeatletter
+\renewcommand\maketitle{
+  \begin{minipage}{\textwidth}
+    \centering
+    {\Huge\textbf{\@title}}\\
+    \includegraphics[width=\textwidth]{\TitleImage}\\
+    \today
+  \end{minipage}
+}
+\makeatother 
+
+
+% \CutLine*{1}% Dotted line without scissors
+% \CutLine{6}%  Dotted line with scissors
+
+% \AddToBackground{5}{%  Background of a small page (last page)
+%   \put(0,0){\textcolor{Orange}{\rule{\paperwidth}{\paperheight}}}}
+\setlength{\unitlength}{1mm}
+\providecommand\PageSixBackTop{
+  \put(0,181){\includegraphics[width=\paperwidth,clip=true,trim=10pt
+    0pt 10pt 0pt]{fontys-page-top}}
+  \put(35,196){\Large\sffamily{}Fontys SEBI Venlo}
+}
+\providecommand\PageSixBackBottom{
+  \put(5,22){\fbox{\begin{minipage}{\textwidth}
+      \small\sffamily
+      {\scriptsize{}This lesson brief is brought to you by\newline
+        \textbf{Fontys Informatics Venlo}.\\
+      If you find any errors or have suggestions, please let us know.
+      }
+      \flushleft
+      Email:\\
+      .\dotfill{}\url{mailto:informatics@fontysvenlo.org}
+    \end{minipage}}
+  }
+}
+
+\AddToBackground{6}{\PageSixBackTop\PageSixBackBottom}
+
+\AddToBackground*{2}{% Background of a large page
+  \put(\LenToUnit{.5\paperwidth},\LenToUnit{.5\paperheight}){%
+    \makebox(0,0)[c]{%
+      \resizebox{.9\paperwidth}{!}{\rotatebox{35.26}{%
+        \textsf{\textbf{\textcolor{LIGHTGRAY}{Fontys SEBI Venlo}}}}}}}}
+
+\usepackage{textcomp}
+\usepackage{mathptmx}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{listings}
+%% enlarge top margin from page 5 onwards
+\usepackage{everypage}
+\AddEverypageHook{% the hook
+  \ifthenelse{\thepage > 5}{\setlength\topmargin{5mm}}{}%
+}
+
+\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
+\newcommand*\Circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,fill=blue!80,inner sep=0.8pt] (char) {{\color{white}#1}};}}
+\lstset{
+	backgroundcolor=\color{lbcolor},
+	tabsize=4,
+        escapeinside={//*}{\^^M},
+%	rulecolor=,
+	language=java,
+        morekeywords={enum},
+        basicstyle={\normalsize\bfseries\color{fontys}\ttfamily},
+        upquote=true,
+        aboveskip={1.5\baselineskip},
+        columns=fixed,
+        showstringspaces=false,
+        extendedchars=true,
+        breaklines=true,
+        prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+        frame=single,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color[rgb]{0,0,1},
+        commentstyle=\color[rgb]{0,0.545,0},
+        stringstyle=\color[rgb]{0.27,0.61,0.41},
+        numberstyle={\tiny\sffamily}
+}
+\lstdefinestyle{block}{
+  basicstyle={\scriptsize}
+}
+\lstMakeShortInline|
+%% listing captions
+\DeclareCaptionFont{white}{ \color{white} }
+\DeclareCaptionFormat{listing}{%
+  \hspace{-4pt}\colorbox[cmyk]{0.43, 0.35, 0.35,0.01 }{%
+    \parbox{\textwidth}{#1#2#3}%
+  }
+}
+\captionsetup[lstlisting]{ format=listing, labelfont=white,
+textfont=white, singlelinecheck=false, margin=0pt,
+font={sf,bf,footnotesize} }
+\AtEndDocument{%
+  \InputIfFileExists{advertisement.tex}{}{}
+}
+
+%% eof lessonbrief.tex
+
